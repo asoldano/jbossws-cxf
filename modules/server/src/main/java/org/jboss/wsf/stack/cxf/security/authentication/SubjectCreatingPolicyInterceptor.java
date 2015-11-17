@@ -36,7 +36,7 @@ import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 import org.apache.cxf.security.SecurityContext;
 import org.apache.cxf.ws.security.wss4j.UsernameTokenInterceptor;
-import org.apache.wss4j.common.principal.UsernameTokenPrincipal;
+import org.apache.ws.security.WSUsernameTokenPrincipal;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.security.SecurityDomainContext;
 import org.jboss.wsf.stack.cxf.Loggers;
@@ -95,10 +95,10 @@ public class SubjectCreatingPolicyInterceptor extends AbstractPhaseInterceptor<M
       {
          //Try authenticating using WSS4J internal info (previously set into SecurityContext by WSS4JInInterceptor)
          Principal p = context.getUserPrincipal();
-         if (!(p instanceof UsernameTokenPrincipal)) {
+         if (!(p instanceof WSUsernameTokenPrincipal)) {
             throw Messages.MESSAGES.couldNotGetSubjectInfo();
          }
-         UsernameTokenPrincipal up = (UsernameTokenPrincipal) p;
+         WSUsernameTokenPrincipal up = (WSUsernameTokenPrincipal) p;
          subject = createSubject(sdc, up.getName(), up.getPassword(), up.isPasswordDigest(), up.getNonce(), up.getCreatedTime());
       }
 

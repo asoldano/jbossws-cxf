@@ -34,6 +34,7 @@ import javax.xml.ws.handler.Handler;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
+import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.jaxws.support.JaxWsEndpointImpl;
 import org.jboss.ws.common.ObjectNameFactory;
 import org.jboss.ws.common.configuration.ConfigDelegateHandler;
@@ -90,11 +91,11 @@ public class ServletHelper
 
    private static void injectServiceAndHandlerResources(Endpoint endpoint)
    {
-      org.apache.cxf.endpoint.Endpoint ep = endpoint.getAttachment(org.apache.cxf.endpoint.Endpoint.class);
-      if (ep != null)
+      ServerFactoryBean factory = endpoint.getAttachment(ServerFactoryBean.class);
+      if (factory != null)
       {
          @SuppressWarnings("rawtypes")
-         List<Handler> chain = ((JaxWsEndpointImpl) ep).getJaxwsBinding().getHandlerChain();
+         List<Handler> chain = ((JaxWsEndpointImpl) factory.getServer().getEndpoint()).getJaxwsBinding().getHandlerChain();
          if (chain != null)
          {
             for (Handler<?> handler : chain)

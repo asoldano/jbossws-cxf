@@ -124,10 +124,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.cxf.xjcplugins</groupId>
-      <artifactId>cxf-xjc-bug986</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cxf.xjcplugins</groupId>
       <artifactId>cxf-xjc-dv</artifactId>
     </dependency>
     <dependency>
@@ -196,16 +192,6 @@
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-xjc</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.xml.bind</groupId>
-          <artifactId>jaxb-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-core</artifactId>
       <exclusions>
         <exclusion>
           <groupId>javax.xml.bind</groupId>

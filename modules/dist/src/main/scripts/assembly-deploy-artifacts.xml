@@ -61,8 +61,7 @@
               <include>org.apache.neethi:neethi:jar</include>
               <include>wsdl4j:wsdl4j:jar</include>
               <include>org.apache.ws.xmlschema:xmlschema-core:jar</include>
-              <include>org.apache.wss4j:wss4j-*:jar</include>
-              <include>org.jasypt:jasypt:jar</include>
+              <include>org.apache.ws.security:wss4j:jar</include>
               <include>org.apache.santuario:xmlsec:jar</include>
               <include>asm:asm:jar</include>
               <include>org.apache.velocity:velocity:jar</include>
@@ -89,9 +88,8 @@
             <outputDirectory>deploy-artifacts/lib</outputDirectory>
             <unpack>false</unpack>
             <includes>
-              <include>org.opensaml:opensaml*:jar</include>
-              <include>org.cryptacular:cryptacular:jar</include>
-              <include>net.shibboleth.utilities:java-support:jar</include>
+              <include>org.opensaml:open*:jar</include>
+              <include>org.opensaml:xmltooling:jar</include>
               <include>org.jboss.ws:jbossws-common-tools:jar</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>

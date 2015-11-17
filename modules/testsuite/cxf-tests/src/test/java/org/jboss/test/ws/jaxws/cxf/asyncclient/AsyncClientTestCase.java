@@ -63,20 +63,20 @@ public class AsyncClientTestCase extends JBossWSTest
       return archive;
    }
 
-   @Test
-   @RunAsClient
-   public void testAsycClienWithHCAddress() throws Exception
-   {
-      if (baseURL.getHost().startsWith("[")) {
-         System.out.println("FIXME: [CXF-6350] Can't turn on async transport by specifying endpoint address in JAX-WS client when using IPv6");
-         return;
-      }
-      Endpoint proxy = initPort();
-      BindingProvider provider = (BindingProvider)proxy;
-      Map<String, Object> requestContext = provider.getRequestContext();
-      requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "hc://" + baseURL);
-      assertEquals("Echo:1000", proxy.echo(1000));
-   }
+//   @Test
+//   @RunAsClient
+//   public void testAsycClienWithHCAddress() throws Exception
+//   {
+//      if (baseURL.getHost().startsWith("[")) {
+//         System.out.println("FIXME: [CXF-6350] Can't turn on async transport by specifying endpoint address in JAX-WS client when using IPv6");
+//         return;
+//      }
+//      Endpoint proxy = initPort();
+//      BindingProvider provider = (BindingProvider)proxy;
+//      Map<String, Object> requestContext = provider.getRequestContext();
+//      requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "hc://" + baseURL);
+//      assertEquals("Echo:1000", proxy.echo(1000));
+//   }
    
    
    @Test

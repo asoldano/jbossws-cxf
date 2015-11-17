@@ -111,41 +111,41 @@ public final class WSReliableMessagingWithAPITestCase extends JBossWSTest
       }
    }
    
-   @Test
-   @RunAsClient
-   public void testWithFeature() throws Exception
-   {
-      final Bus bus = BusFactory.newInstance().createBus();
-      BusFactory.setThreadDefaultBus(bus);
-      try {
-         QName serviceName = new QName("http://www.jboss.org/jbossws/ws-extensions/wsrm", "SimpleService");
-         URL wsdlURL = getResourceURL("jaxws/samples/wsrm/WEB-INF/wsdl/SimpleService.wsdl");
-         Service service = Service.create(wsdlURL, serviceName);
-         
-         RMFeature feature = new RMFeature();
-         RMAssertion rma = new RMAssertion();
-         RMAssertion.BaseRetransmissionInterval bri = new RMAssertion.BaseRetransmissionInterval();
-         bri.setMilliseconds(4000L);
-         rma.setBaseRetransmissionInterval(bri);
-         AcknowledgementInterval ai = new AcknowledgementInterval();
-         ai.setMilliseconds(2000L);
-         rma.setAcknowledgementInterval(ai);
-         feature.setRMAssertion(rma);
-         DestinationPolicyType dp = new DestinationPolicyType();
-         AcksPolicyType ap = new AcksPolicyType();
-         ap.setIntraMessageThreshold(0);
-         dp.setAcksPolicy(ap);
-         feature.setDestinationPolicy(dp);
-         
-         SimpleService proxy = (SimpleService)service.getPort(SimpleService.class, feature);
-         ((BindingProvider)proxy).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, baseURL + "/jaxws-samples-wsrm-api/SimpleService");
-         
-         assertEquals("Hello World!", proxy.echo("Hello World!")); // request response call
-         proxy.ping(); // one way call
-      } finally {
-         bus.shutdown(true);
-      }
-   }
+//   @Test
+//   @RunAsClient
+//   public void testWithFeature() throws Exception
+//   {
+//      final Bus bus = BusFactory.newInstance().createBus();
+//      BusFactory.setThreadDefaultBus(bus);
+//      try {
+//         QName serviceName = new QName("http://www.jboss.org/jbossws/ws-extensions/wsrm", "SimpleService");
+//         URL wsdlURL = getResourceURL("jaxws/samples/wsrm/WEB-INF/wsdl/SimpleService.wsdl");
+//         Service service = Service.create(wsdlURL, serviceName);
+//         
+//         RMFeature feature = new RMFeature();
+//         RMAssertion rma = new RMAssertion();
+//         RMAssertion.BaseRetransmissionInterval bri = new RMAssertion.BaseRetransmissionInterval();
+//         bri.setMilliseconds(4000L);
+//         rma.setBaseRetransmissionInterval(bri);
+//         AcknowledgementInterval ai = new AcknowledgementInterval();
+//         ai.setMilliseconds(2000L);
+//         rma.setAcknowledgementInterval(ai);
+//         feature.setRMAssertion(rma);
+//         DestinationPolicyType dp = new DestinationPolicyType();
+//         AcksPolicyType ap = new AcksPolicyType();
+//         ap.setIntraMessageThreshold(0);
+//         dp.setAcksPolicy(ap);
+//         feature.setDestinationPolicy(dp);
+//         
+//         SimpleService proxy = (SimpleService)service.getPort(SimpleService.class, feature);
+//         ((BindingProvider)proxy).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, baseURL + "/jaxws-samples-wsrm-api/SimpleService");
+//         
+//         assertEquals("Hello World!", proxy.echo("Hello World!")); // request response call
+//         proxy.ping(); // one way call
+//      } finally {
+//         bus.shutdown(true);
+//      }
+//   }
    
    @Test
    @RunAsClient

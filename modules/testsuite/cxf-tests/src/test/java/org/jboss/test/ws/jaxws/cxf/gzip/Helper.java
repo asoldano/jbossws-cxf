@@ -94,23 +94,23 @@ public class Helper implements ClientHelper
       {
          bus.shutdown(true);
       }
-      bus = BusFactory.newInstance().createBus();
-      try
-      {
-         //JAX-WS way
-         BusFactory.setThreadDefaultBus(bus);
-         
-         GZIPFeature gzipFeature = new GZIPFeature();
-         gzipFeature.setThreshold(0);
-         HelloWorld port = getPort(gzipFeature);
-         if(!"foo".equals(port.echo("foo"))) {
-            return false;
-         }
-      }
-      finally
-      {
-         bus.shutdown(true);
-      }
+//      bus = BusFactory.newInstance().createBus();
+//      try
+//      {
+//         //JAX-WS way
+//         BusFactory.setThreadDefaultBus(bus);
+//         
+//         GZIPFeature gzipFeature = new GZIPFeature();
+//         gzipFeature.setThreshold(0);
+//         HelloWorld port = getPort(gzipFeature);
+//         if(!"foo".equals(port.echo("foo"))) {
+//            return false;
+//         }
+//      }
+//      finally
+//      {
+//         bus.shutdown(true);
+//      }
       return true;
    }
    

@@ -81,18 +81,18 @@ public class WSRMStoreFeatureTestCase extends JBossWSTest
       return archive;
    }
    
-   @Test
-   @RunAsClient
-   @OperateOnDeployment(DEP2)
-   public void test() throws Exception
-   {  
-      QName serviceName = new QName("http://www.jboss.org/jbossws/ws-extensions/wsrm", "RMService");
-      Service service = Service.create(new URL(baseURL + "?wsdl"), serviceName);
-      Endpoint proxy = (Endpoint)service.getPort(Endpoint.class, new RMStoreFeature());
-      assertEquals("Hello World! with RMStore", proxy.checkPersistent("Hello World!"));
-      //check client RMStore enabled
-      assertTrue("RMStore is not enabled and stores data for client side", RMStoreCheckInterceptor.seqSize > 0);
-   }
+//   @Test
+//   @RunAsClient
+//   @OperateOnDeployment(DEP2)
+//   public void test() throws Exception
+//   {  
+//      QName serviceName = new QName("http://www.jboss.org/jbossws/ws-extensions/wsrm", "RMService");
+//      Service service = Service.create(new URL(baseURL + "?wsdl"), serviceName);
+//      Endpoint proxy = (Endpoint)service.getPort(Endpoint.class, new RMStoreFeature());
+//      assertEquals("Hello World! with RMStore", proxy.checkPersistent("Hello World!"));
+//      //check client RMStore enabled
+//      assertTrue("RMStore is not enabled and stores data for client side", RMStoreCheckInterceptor.seqSize > 0);
+//   }
 
    
 }

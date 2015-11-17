@@ -94,7 +94,6 @@ public final class WSSecurityPolicyExamples23xTestCase extends JBossWSTest
          .addClass(org.jboss.test.ws.jaxws.samples.wsse.policy.oasis.Service2323Impl.class)
          .addClass(org.jboss.test.ws.jaxws.samples.wsse.policy.oasis.Service2324Impl.class)
          .addClass(org.jboss.test.ws.jaxws.samples.wsse.policy.oasis.ServiceIface.class)
-         .addClass(org.jboss.test.ws.jaxws.samples.wsse.policy.oasis.SAMLValidator.class)
          .addAsWebInfResource(new File(JBossWSTestHelper.getTestResourcesDir() + "/jaxws/samples/wsse/policy/oasis/WEB-INF/bob.jks"), "classes/bob.jks")
          .addAsWebInfResource(new File(JBossWSTestHelper.getTestResourcesDir() + "/jaxws/samples/wsse/policy/oasis/WEB-INF/bob.properties"), "classes/bob.properties")
          .addAsWebInfResource(new File(JBossWSTestHelper.getTestResourcesDir() + "/jaxws/samples/wsse/policy/oasis/WEB-INF/wsdl/SecurityService23x.wsdl"), "wsdl/SecurityService23x.wsdl")
@@ -172,7 +171,6 @@ public final class WSSecurityPolicyExamples23xTestCase extends JBossWSTest
       Map<String, Object> reqCtx = ((BindingProvider) proxy).getRequestContext();
       SamlCallbackHandler cbh = new SamlCallbackHandler();
       cbh.setConfirmationMethod("urn:oasis:names:tc:SAML:1.0:cm:holder-of-key");
-      cbh.setSigned(true);
       reqCtx.put(SecurityConstants.SAML_CALLBACK_HANDLER, cbh);
       reqCtx.put(SecurityConstants.SIGNATURE_PROPERTIES, Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       reqCtx.put(SecurityConstants.SIGNATURE_USERNAME, "alice");
@@ -223,7 +221,6 @@ public final class WSSecurityPolicyExamples23xTestCase extends JBossWSTest
       Map<String, Object> reqCtx = ((BindingProvider) proxy).getRequestContext();
       SamlCallbackHandler cbh = new SamlCallbackHandler();
       cbh.setConfirmationMethod("urn:oasis:names:tc:SAML:1.0:cm:holder-of-key");
-      cbh.setSigned(true);
       reqCtx.put(SecurityConstants.SAML_CALLBACK_HANDLER, cbh);
       reqCtx.put(SecurityConstants.CALLBACK_HANDLER, new KeystorePasswordCallback());
       reqCtx.put(SecurityConstants.SIGNATURE_PROPERTIES, Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
@@ -297,7 +294,6 @@ public final class WSSecurityPolicyExamples23xTestCase extends JBossWSTest
       SamlCallbackHandler cbh = new SamlCallbackHandler();
       cbh.setConfirmationMethod("urn:oasis:names:tc:SAML:2.0:cm:holder-of-key");
       cbh.setSaml2(true);
-      cbh.setSigned(true);
       reqCtx.put(SecurityConstants.SAML_CALLBACK_HANDLER, cbh);
       reqCtx.put(SecurityConstants.SIGNATURE_PROPERTIES, Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       reqCtx.put(SecurityConstants.SIGNATURE_USERNAME, "alice");

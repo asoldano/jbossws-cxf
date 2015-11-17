@@ -27,6 +27,7 @@ import java.util.Map;
 
 import javax.xml.ws.handler.Handler;
 
+import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.jaxws.support.JaxWsEndpointImpl;
 import org.jboss.ws.common.configuration.ConfigDelegateHandler;
 import org.jboss.ws.common.deployment.ReferenceFactory;
@@ -41,25 +42,24 @@ import org.jboss.wsf.spi.deployment.Reference;
  */
 public final class CXFInstanceProvider implements InstanceProvider {
 
-    private final Object serviceBean;
-    private final org.apache.cxf.endpoint.Endpoint cxfEndpoint;
+    private final ServerFactoryBean factory;
     private final Map<String, Reference> cache = new HashMap<String, Reference>(8);
 
-    public CXFInstanceProvider(final Object serviceBean, final org.apache.cxf.endpoint.Endpoint cxfEndpoint) {
-        this.serviceBean = serviceBean;
-        this.cxfEndpoint = cxfEndpoint;
+    public CXFInstanceProvider(final ServerFactoryBean factory) {
+        this.factory = factory;
     }
 
     @SuppressWarnings("rawtypes")
     public synchronized Reference getInstance(final String className) {
         Reference instance = cache.get(className);
         if (instance == null) {
-            if (className.equals(serviceBean.getClass().getName())) {
+            final Object serviceBean = factory.getServiceBean();
+            if (className.equals(factory.getServiceBean().getClass().getName())) {
                 cache.put(className, instance = ReferenceFactory.newUninitializedReference(serviceBean));
             }
             if (instance == null)
             {
-               List<Handler> chain = ((JaxWsEndpointImpl) cxfEndpoint).getJaxwsBinding().getHandlerChain();
+               List<Handler> chain = ((JaxWsEndpointImpl) factory.getServer().getEndpoint()).getJaxwsBinding().getHandlerChain();
                if (chain != null)
                {
                   for (Handler handler : chain)

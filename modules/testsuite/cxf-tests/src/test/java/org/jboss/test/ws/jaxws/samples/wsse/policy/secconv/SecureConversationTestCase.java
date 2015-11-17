@@ -28,7 +28,6 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
-import org.apache.cxf.ws.security.SecurityConstants;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -97,22 +96,17 @@ public final class SecureConversationTestCase extends JBossWSTest
       URL wsdlURL = new URL("http://" + getServerHost() + ":" + getServerPort() + "/jaxws-samples-wsse-policy-secconv/SecureConversationService?wsdl");
       Service service = Service.create(wsdlURL, serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().startsWith("Secure Conversation Hello World!"));
       assertTrue(proxy.sayHello().startsWith("Secure Conversation Hello World!"));
    }
 
-   private void setupWsse(ServiceIface proxy, boolean streaming)
+   private void setupWsse(ServiceIface proxy)
    {
       ((BindingProvider)proxy).getRequestContext().put("ws-security.callback-handler.sct", new KeystorePasswordCallback());
       ((BindingProvider)proxy).getRequestContext().put("ws-security.signature.properties.sct", Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       ((BindingProvider)proxy).getRequestContext().put("ws-security.encryption.properties.sct", Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       ((BindingProvider)proxy).getRequestContext().put("ws-security.signature.username.sct", "alice");
       ((BindingProvider)proxy).getRequestContext().put("ws-security.encryption.username.sct", "bob");
-      if (streaming)
-      {
-         ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENABLE_STREAMING_SECURITY, "true");
-         ((BindingProvider)proxy).getResponseContext().put(SecurityConstants.ENABLE_STREAMING_SECURITY, "true");
-      }
    }
 }

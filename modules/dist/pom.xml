@@ -60,17 +60,7 @@
       <!-- OpenSAML -->
       <dependency>
         <groupId>org.opensaml</groupId>
-        <artifactId>opensaml-saml-impl</artifactId>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.opensaml</groupId>
-        <artifactId>opensaml-xacml-impl</artifactId>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.opensaml</groupId>
-        <artifactId>opensaml-xacml-saml-impl</artifactId>
+        <artifactId>opensaml</artifactId>
         <scope>provided</scope>
       </dependency>
       <!--junit-->

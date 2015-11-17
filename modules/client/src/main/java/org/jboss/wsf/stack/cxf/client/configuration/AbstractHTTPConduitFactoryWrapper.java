@@ -23,7 +23,6 @@ package org.jboss.wsf.stack.cxf.client.configuration;
 
 import java.io.IOException;
 
-import org.apache.cxf.Bus;
 import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transport.http.HTTPConduitFactory;
@@ -48,17 +47,17 @@ public abstract class AbstractHTTPConduitFactoryWrapper implements HTTPConduitFa
    }
    
    @Override
-   public HTTPConduit createConduit(HTTPTransportFactory f, Bus b, EndpointInfo localInfo, EndpointReferenceType target)
+   public HTTPConduit createConduit(HTTPTransportFactory f, EndpointInfo localInfo, EndpointReferenceType target)
          throws IOException
    {
       HTTPConduit conduit = null;
       if (delegate != null)
       {
-         conduit = delegate.createConduit(f, b, localInfo, target);
+         conduit = delegate.createConduit(f, localInfo, target);
       }
       else
       {
-         conduit = createNewConduit(f, b, localInfo, target);
+         conduit = createNewConduit(f, localInfo, target);
       }
       if (conduit != null)
       {
@@ -81,13 +80,12 @@ public abstract class AbstractHTTPConduitFactoryWrapper implements HTTPConduitFa
     * Creates a new HTTPConduit instance; this is used internally when no delegate is available for getting a HTTPConduit instance to configure
     * 
     * @param f          The current HTTPTransportFactory
-    * @param b          The current Bus
     * @param localInfo  The current EndpointInfo
     * @param target     The EndpointReferenceType
     * @return           A new HTTPConduit instance
     * @throws IOException
     */
-   protected abstract HTTPConduit createNewConduit(HTTPTransportFactory f, Bus b, EndpointInfo localInfo,
+   protected abstract HTTPConduit createNewConduit(HTTPTransportFactory f, EndpointInfo localInfo,
          EndpointReferenceType target) throws IOException;
 
    /**

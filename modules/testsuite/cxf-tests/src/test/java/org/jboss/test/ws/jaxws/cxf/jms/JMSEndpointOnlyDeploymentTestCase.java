@@ -99,22 +99,22 @@ public class JMSEndpointOnlyDeploymentTestCase extends JBossWSTest
       assertEquals("true", IOUtils.readAndCloseStream(url.openStream()));
    }
 
-   @Test
-   @RunAsClient
-   public void testJMSEndpointClientSide() throws Exception
-   {
-      URL wsdlUrl = getResourceURL("jaxws/cxf/jms/META-INF/wsdl/HelloWorldService.wsdl");
-      QName serviceName = new QName("http://org.jboss.ws/jaxws/cxf/jms", "HelloWorldService");
-
-      Service service = Service.create(wsdlUrl, serviceName);
-      HelloWorld proxy = (HelloWorld) service.getPort(new QName("http://org.jboss.ws/jaxws/cxf/jms", "HelloWorldImplPort"), HelloWorld.class);
-      setupProxy(proxy);
-      try {
-         assertEquals("Hi", proxy.echo("Hi"));
-      } catch (Exception e) {
-         rethrowAndHandleAuthWarning(e);
-      }
-   }
+//   @Test
+//   @RunAsClient
+//   public void testJMSEndpointClientSide() throws Exception
+//   {
+//      URL wsdlUrl = getResourceURL("jaxws/cxf/jms/META-INF/wsdl/HelloWorldService.wsdl");
+//      QName serviceName = new QName("http://org.jboss.ws/jaxws/cxf/jms", "HelloWorldService");
+//
+//      Service service = Service.create(wsdlUrl, serviceName);
+//      HelloWorld proxy = (HelloWorld) service.getPort(new QName("http://org.jboss.ws/jaxws/cxf/jms", "HelloWorldImplPort"), HelloWorld.class);
+//      setupProxy(proxy);
+//      try {
+//         assertEquals("Hi", proxy.echo("Hi"));
+//      } catch (Exception e) {
+//         rethrowAndHandleAuthWarning(e);
+//      }
+//   }
 
    @Test
    @RunAsClient
@@ -207,15 +207,15 @@ public class JMSEndpointOnlyDeploymentTestCase extends JBossWSTest
       }
    }
    
-   private void setupProxy(HelloWorld proxy) {
-      JMSConduit conduit = (JMSConduit)ClientProxy.getClient(proxy).getConduit();
-      JMSConfiguration config = conduit.getJmsConfig();
-      config.setUserName(JBossWSTestHelper.getTestUsername());
-      config.setPassword(JBossWSTestHelper.getTestPassword());
-      Properties props = conduit.getJmsConfig().getJndiEnvironment();
-      props.put(Context.SECURITY_PRINCIPAL, JBossWSTestHelper.getTestUsername());
-      props.put(Context.SECURITY_CREDENTIALS, JBossWSTestHelper.getTestPassword());
-   }
+//   private void setupProxy(HelloWorld proxy) {
+//      JMSConduit conduit = (JMSConduit)ClientProxy.getClient(proxy).getConduit();
+//      JMSConfiguration config = conduit.getJmsConfig();
+//      config.setUserName(JBossWSTestHelper.getTestUsername());
+//      config.setPassword(JBossWSTestHelper.getTestPassword());
+//      Properties props = conduit.getJmsConfig().getJndiEnvironment();
+//      props.put(Context.SECURITY_PRINCIPAL, JBossWSTestHelper.getTestUsername());
+//      props.put(Context.SECURITY_CREDENTIALS, JBossWSTestHelper.getTestPassword());
+//   }
    
    private static void rethrowAndHandleAuthWarning(Exception e) throws Exception {
       System.out.println("This test requires a testQueue JMS queue and a user with 'guest' role to be available on the application server; " +

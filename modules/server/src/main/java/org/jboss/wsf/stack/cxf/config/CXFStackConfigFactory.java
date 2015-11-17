@@ -26,7 +26,7 @@ import static org.jboss.wsf.stack.cxf.Loggers.ROOT_LOGGER;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-import org.apache.wss4j.common.crypto.WSProviderConfig;
+import org.apache.ws.security.WSSConfig;
 import org.jboss.wsf.spi.classloading.ClassLoaderProvider;
 import org.jboss.wsf.spi.management.StackConfig;
 import org.jboss.wsf.spi.management.StackConfigFactory;
@@ -58,7 +58,7 @@ class CXFStackConfig implements StackConfig
       try
       {
          setContextClassLoader(ClassLoaderProvider.getDefaultProvider().getServerIntegrationClassLoader());
-         WSProviderConfig.init(true, false, true);
+         WSSConfig.init();
       }
       catch (Exception e)
       {

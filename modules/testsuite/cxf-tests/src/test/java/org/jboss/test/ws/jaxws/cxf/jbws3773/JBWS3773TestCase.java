@@ -33,6 +33,7 @@ import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -66,7 +67,7 @@ public class JBWS3773TestCase extends JBossWSTest
    {
       Greeter greeter = initPort();
 
-      AddressingProperties addrProperties = new AddressingProperties();
+      AddressingProperties addrProperties = new AddressingPropertiesImpl();
 
       EndpointReferenceType replyTo = new EndpointReferenceType();
       AttributedURIType replyToURI = new AttributedURIType();

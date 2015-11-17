@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
 
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.interceptor.InterceptorProvider;
+import org.apache.cxf.message.Message;
 import org.jboss.wsf.stack.cxf.client.Constants;
 
 /**
@@ -59,7 +60,7 @@ public class InterceptorUtils
       }
    }
    
-   public static void removeInterceptors(List<Interceptor<?>> interceptorsList, String interceptors) {
+   public static void removeInterceptors(List<Interceptor<? extends Message>> interceptorsList, String interceptors) {
       Set<String> set = new HashSet<String>();
       StringTokenizer st = new StringTokenizer(interceptors, ", ", false);
       while (st.hasMoreTokens()) {

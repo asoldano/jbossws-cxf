@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.xml.stream.XMLStreamReader;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.soap.SOAPBinding;
 
@@ -48,7 +47,7 @@ import org.apache.cxf.resource.ResourceResolver;
 import org.apache.cxf.service.factory.FactoryBeanListener;
 import org.apache.cxf.service.factory.FactoryBeanListenerManager;
 import org.apache.cxf.service.invoker.Invoker;
-import org.apache.cxf.staxutils.XMLStreamReaderWrapper;
+import org.apache.cxf.transport.http.DestinationRegistry;
 import org.apache.cxf.transport.http.HttpDestinationFactory;
 import org.apache.cxf.transport.servlet.ServletDestinationFactory;
 import org.apache.cxf.workqueue.AutomaticWorkQueue;
@@ -60,8 +59,6 @@ import org.apache.cxf.ws.policy.AlternativeSelector;
 import org.apache.cxf.ws.policy.PolicyEngine;
 import org.apache.cxf.ws.policy.selector.MaximalAlternativeSelector;
 import org.apache.cxf.ws.rm.RMManager;
-import org.apache.cxf.wsdl.WSDLManager;
-import org.apache.cxf.wsdl11.WSDLManagerImpl;
 import org.jboss.ws.api.annotation.PolicySets;
 import org.jboss.ws.api.binding.BindingCustomization;
 import org.jboss.wsf.spi.SPIProvider;
@@ -92,6 +89,7 @@ import org.jboss.wsf.stack.cxf.management.InstrumentationManagerExtImpl;
 import org.jboss.wsf.stack.cxf.metadata.services.DDBeans;
 import org.jboss.wsf.stack.cxf.metadata.services.DDEndpoint;
 import org.jboss.wsf.stack.cxf.security.authentication.AuthenticationMgrSubjectCreatingInterceptor;
+import org.jboss.wsf.stack.cxf.transport.JBossWSDestinationRegistryImpl;
 
 /**
  * A wrapper of the Bus for performing most of the configurations required on it by JBossWS
@@ -149,7 +147,6 @@ public class BusHolder
       bus.setProperty(org.jboss.wsf.stack.cxf.client.Constants.DEPLOYMENT_BUS, true);
       busHolderListener = new BusHolderLifeCycleListener();
       bus.getExtension(BusLifeCycleManager.class).registerLifeCycleListener(busHolderListener);
-      setWSDLManagerStreamWrapper(bus);
       
       if (configurer != null)
       {
@@ -182,6 +179,10 @@ public class BusHolder
       {
          bus.getExtension(PolicyEngine.class).setAlternativeSelector(getAlternativeSelector(props));
       }     
+      if (bus.getExtension(DestinationRegistry.class) == null)
+      {
+         bus.setExtension(new JBossWSDestinationRegistryImpl(), DestinationRegistry.class);
+      }
       setCXFManagement(bus, props); //*first* enabled cxf management if required, *then* add anything else which could be manageable (e.g. work queues)
       setAdditionalWorkQueues(bus, props); 
       setWSDiscovery(bus, props);
@@ -426,18 +427,6 @@ public class BusHolder
             bus.getExtension(ServerLifeCycleManager.class).registerListener(new WSDiscoveryServerListener(bus));
          }
       }
-   }
-   
-   private static void setWSDLManagerStreamWrapper(Bus bus)
-   {
-      ((WSDLManagerImpl) bus.getExtension(WSDLManager.class)).setXMLStreamReaderWrapper(new XMLStreamReaderWrapper()
-      {
-         @Override
-         public XMLStreamReader wrap(XMLStreamReader reader)
-         {
-            return new SysPropExpandingStreamReader(reader);
-         }
-      });
    }
    
    private static AlternativeSelector getAlternativeSelector(Map<String, String> props) {

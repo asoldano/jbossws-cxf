@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.apache.cxf.ws.addressing.AddressingBuilder;
 import org.apache.cxf.ws.addressing.AddressingConstants;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
@@ -46,6 +47,8 @@ import org.jboss.ws.api.addressing.MAPRelatesTo;
  */
 public class CXFMAPBuilder implements MAPBuilder
 {
+   private AddressingBuilder addressingBuilder;
+   
    private static final MAPBuilder theBuilder = new CXFMAPBuilder();
 
    public static MAPBuilder getBuilder()
@@ -55,11 +58,13 @@ public class CXFMAPBuilder implements MAPBuilder
 
    private CXFMAPBuilder()
    {
+      AddressingBuilder implementation = AddressingBuilder.getAddressingBuilder();
+      this.addressingBuilder = implementation;
    }
 
    public MAP newMap()
    {
-      AddressingProperties implementation = new AddressingProperties();
+      AddressingProperties implementation = addressingBuilder.newAddressingProperties();
       return new CXFMAP(implementation);
    }
 
@@ -84,7 +89,7 @@ public class CXFMAPBuilder implements MAPBuilder
       AddressingProperties implementation = (AddressingProperties)ctx.get(CXFMAPConstants.CLIENT_ADDRESSING_PROPERTIES_OUTBOUND);
       if (implementation == null)
       {
-         implementation = new AddressingProperties();
+         implementation = addressingBuilder.newAddressingProperties();
          ctx.put(CXFMAPConstants.CLIENT_ADDRESSING_PROPERTIES, implementation);
          ctx.put(CXFMAPConstants.CLIENT_ADDRESSING_PROPERTIES_OUTBOUND, implementation);
       }
@@ -99,7 +104,7 @@ public class CXFMAPBuilder implements MAPBuilder
 
    public MAPConstants newConstants()
    {
-      AddressingConstants implementation = new AddressingConstants();
+      AddressingConstants implementation = addressingBuilder.newAddressingConstants();
       return new CXFMAPConstants(implementation);
    }
 

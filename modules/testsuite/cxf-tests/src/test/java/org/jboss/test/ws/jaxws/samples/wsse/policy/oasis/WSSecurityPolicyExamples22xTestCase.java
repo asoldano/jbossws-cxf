@@ -108,7 +108,7 @@ public final class WSSecurityPolicyExamples22xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "SecurityService221?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService221Port"), ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       try {
          assertTrue(proxy.sayHello().equals("Hello - (WSS1.0) X.509 Certificates, Sign, Encrypt"));
       } catch (Exception e) {
@@ -133,7 +133,7 @@ public final class WSSecurityPolicyExamples22xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "SecurityService222?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService222Port"), ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       try {
          assertTrue(proxy.sayHello().equals("Hello - (WSS1.0) Mutual Authentication with X.509 Certificates, Sign, Encrypt"));
       } catch (Exception e) {
@@ -158,7 +158,7 @@ public final class WSSecurityPolicyExamples22xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "SecurityService223?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService223Port"), ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       try {
          assertTrue(proxy.sayHello().equals("Hello - (WSS1.1) Anonymous with X.509 Certificates, Sign, Encrypt"));
       } catch (Exception e) {
@@ -183,7 +183,7 @@ public final class WSSecurityPolicyExamples22xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "SecurityService224?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService224Port"), ServiceIface.class);
-      setupWsse(proxy, false);
+      setupWsse(proxy);
       try {
          assertTrue(proxy.sayHello().equals("Hello - (WSS1.1) Mutual Authentication with X.509 Certificates, Sign, Encrypt"));
       } catch (Exception e) {
@@ -191,17 +191,12 @@ public final class WSSecurityPolicyExamples22xTestCase extends JBossWSTest
       }
    }
 
-   private void setupWsse(ServiceIface proxy, boolean streaming)
+   private void setupWsse(ServiceIface proxy)
    {
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.CALLBACK_HANDLER, new KeystorePasswordCallback());
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.SIGNATURE_PROPERTIES, Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENCRYPT_PROPERTIES, Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.SIGNATURE_USERNAME, "alice");
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENCRYPT_USERNAME, "bob");
-      if (streaming)
-      {
-         ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENABLE_STREAMING_SECURITY, "true");
-         ((BindingProvider)proxy).getResponseContext().put(SecurityConstants.ENABLE_STREAMING_SECURITY, "true");
-      }
    }
 }

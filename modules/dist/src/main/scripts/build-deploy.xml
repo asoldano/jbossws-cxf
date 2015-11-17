@@ -345,13 +345,13 @@
       </copy>
       <copy todir="@{targetdir}/org/apache/cxf/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
-          <include name="**/cxf-core*.jar"/>
+          <include name="**/cxf-api*.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/apache/cxf/impl/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
           <include name="**/cxf-*.jar"/>
-          <exclude name="**/cxf-core*.jar"/>
+          <exclude name="**/cxf-api*.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/jboss/ws/api/main" flatten="false" overwrite="true">
@@ -394,8 +394,7 @@
       </copy>
       <copy todir="@{targetdir}/org/apache/ws/security/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
-          <include name="**/wss4j-*.jar"/>
-          <include name="**/jasypt.jar"/>
+          <include name="**/wss4j.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/apache/ws/xmlschema/main" flatten="false" overwrite="true">
@@ -405,9 +404,9 @@
       </copy>
       <copy todir="@{targetdir}/org/opensaml/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
-          <include name="**/opensaml*.jar"/>
-          <include name="**/java-support.jar"/>
-          <include name="**/cryptacular.jar"/>
+          <include name="**/opensaml.jar"/>
+          <include name="**/openws.jar"/>
+          <include name="**/xmltooling.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/jboss/as/webservices/main" flatten="false" overwrite="true">
@@ -466,13 +465,13 @@
       </copy>
       <copy todir="@{targetdir}/org/apache/cxf/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
-          <include name="**/cxf-core*.jar"/>
+          <include name="**/cxf-api*.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/apache/cxf/impl/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
           <include name="**/cxf-*.jar"/>
-          <exclude name="**/cxf-core*.jar"/>      
+          <exclude name="**/cxf-api*.jar"/>      
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/jboss/ws/api/main" flatten="false" overwrite="true">
@@ -515,8 +514,7 @@
       </copy>
       <copy todir="@{targetdir}/org/apache/ws/security/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
-          <include name="**/wss4j-*.jar"/>
-          <include name="**/jasypt.jar"/>
+          <include name="**/wss4j.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/apache/ws/xmlschema/main" flatten="false" overwrite="true">
@@ -526,9 +524,9 @@
       </copy>
       <copy todir="@{targetdir}/org/opensaml/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
-          <include name="**/opensaml*.jar"/>
-          <include name="**/java-support.jar"/>
-          <include name="**/cryptacular.jar"/>
+          <include name="**/opensaml.jar"/>
+          <include name="**/openws.jar"/>
+          <include name="**/xmltooling.jar"/>
         </fileset>
       </copy>
       <copy todir="@{targetdir}/org/jboss/as/webservices/main" flatten="false" overwrite="true">

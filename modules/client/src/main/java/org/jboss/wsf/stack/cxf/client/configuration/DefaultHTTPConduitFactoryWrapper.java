@@ -89,10 +89,10 @@ public final class DefaultHTTPConduitFactoryWrapper extends AbstractHTTPConduitF
       }
    }
 
-   protected HTTPConduit createNewConduit(HTTPTransportFactory f, Bus b, EndpointInfo localInfo,
+   protected HTTPConduit createNewConduit(HTTPTransportFactory f, EndpointInfo localInfo,
          EndpointReferenceType target) throws IOException
    {
-      return new URLConnectionHTTPConduit(b, localInfo, target);
+      return new URLConnectionHTTPConduit(f.getBus(), localInfo, target);
    }
 
    protected void configureConduit(HTTPConduit conduit)

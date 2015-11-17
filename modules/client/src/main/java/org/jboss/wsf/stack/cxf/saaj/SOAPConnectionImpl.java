@@ -80,7 +80,7 @@ public class SOAPConnectionImpl extends SOAPConnection
        // sent SOAPMessage
        try 
        {
-          final Conduit c = ci.getConduit(info, BusFactory.getThreadDefaultBus(false)); //TODO verify bus
+          final Conduit c = ci.getConduit(info);
 
           if (msgOut.saveRequired())
           {
@@ -152,7 +152,7 @@ public class SOAPConnectionImpl extends SOAPConnection
        // sent GET request
        try 
        {
-          final Conduit c = ci.getConduit(info, BusFactory.getThreadDefaultBus(false)); //TODO verify bus
+          final Conduit c = ci.getConduit(info);
           
           if (c instanceof HTTPConduit)
           {

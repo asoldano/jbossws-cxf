@@ -105,7 +105,7 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "/SecurityService2111?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService2111Port"), ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().equals("Hello - UsernameToken with plain text password"));
    }
 
@@ -121,7 +121,7 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "/SecurityService2112?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService2112Port"), ServiceIface.class);
-      setupWsse(proxy, false);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().equals("Hello - UsernameToken without password"));
    }
 
@@ -137,7 +137,7 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "/SecurityService2113?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService2113Port"), ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().equals("Hello - UsernameToken with timestamp, nonce and password hash"));
    }
 
@@ -153,7 +153,7 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL("https", baseURL.getHost(), (baseURL.getPort() - 8080 + 8443), "/jaxws-samples-wsse-policy-oasis-21x/SecurityService2121?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService2121Port"), ServiceIface.class);
-      setupWsse(proxy, false);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().equals("Hello - UsernameToken as supporting token"));
    }
 
@@ -169,7 +169,7 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "/SecurityService213?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService213Port"), ServiceIface.class);
-      setupWsse(proxy, true);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().equals("Hello - (WSS 1.0) UsernameToken with Mutual X.509v3 Authentication, Sign, Encrypt"));
    }
 
@@ -185,11 +185,11 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
    {
       Service service = Service.create(new URL(baseURL + "/SecurityService214?wsdl"), serviceName);
       ServiceIface proxy = (ServiceIface)service.getPort(new QName(NS, "SecurityService214Port"), ServiceIface.class);
-      setupWsse(proxy, false);
+      setupWsse(proxy);
       assertTrue(proxy.sayHello().equals("Hello - (WSS 1.1) User Name with Certificates, Sign, Encrypt"));
    }
    
-   private void setupWsse(ServiceIface proxy, boolean streaming)
+   private void setupWsse(ServiceIface proxy)
    {
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.USERNAME, "kermit");
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.CALLBACK_HANDLER, new UsernamePasswordCallback());
@@ -197,10 +197,5 @@ public final class WSSecurityPolicyExamples21xTestCase extends JBossWSTest
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENCRYPT_PROPERTIES, Thread.currentThread().getContextClassLoader().getResource("META-INF/alice.properties"));
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.SIGNATURE_USERNAME, "alice");
       ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENCRYPT_USERNAME, "bob");
-      if (streaming)
-      {
-         ((BindingProvider)proxy).getRequestContext().put(SecurityConstants.ENABLE_STREAMING_SECURITY, "true");
-         ((BindingProvider)proxy).getResponseContext().put(SecurityConstants.ENABLE_STREAMING_SECURITY, "true");
-      }
    }
 }

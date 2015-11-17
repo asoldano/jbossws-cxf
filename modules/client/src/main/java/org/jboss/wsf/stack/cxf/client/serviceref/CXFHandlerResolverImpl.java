@@ -69,7 +69,7 @@ import javax.xml.ws.handler.PortInfo;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.handler.HandlerChainBuilder;
-import org.apache.cxf.jaxws.handler.types.PortComponentHandlerType;
+import org.apache.cxf.jaxws.javaee.PortComponentHandlerType;
 import org.jboss.ws.common.DOMUtils;
 import org.jboss.wsf.spi.metadata.ParserConstants;
 import org.w3c.dom.Document;
